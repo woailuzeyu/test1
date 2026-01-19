@@ -1,10 +1,25 @@
 "use client"
 
+import { signInWithGoogle, signOut } from "@/app/actions/auth"
 import { Button } from "@/components/ui/button"
-import { useState } from "react"
+import { useMemo, useState } from "react"
 
-export default function Header() {
+type HeaderProps = {
+  user?: {
+    email?: string | null
+    user_metadata?: {
+      full_name?: string
+      avatar_url?: string
+    }
+  } | null
+}
+
+export default function Header({ user }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false)
+  const displayName = useMemo(() => {
+    if (!user) return null
+    return user.user_metadata?.full_name || user.email || "Account"
+  }, [user])
 
   return (
     <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-border">
@@ -35,6 +50,30 @@ export default function Header() {
 
         {/* CTA Button */}
         <div className="flex items-center gap-4">
+          {user ? (
+            <>
+              <span className="hidden sm:inline-flex text-sm text-foreground/70">
+                Hi, {displayName}
+              </span>
+              <form action={signOut} className="hidden sm:block">
+                <Button
+                  type="submit"
+                  className="bg-white text-foreground border border-border hover:bg-accent/20 font-semibold"
+                >
+                  Sign out
+                </Button>
+              </form>
+            </>
+          ) : (
+            <form action={signInWithGoogle} className="hidden sm:block">
+              <Button
+                type="submit"
+                className="bg-white text-foreground border border-border hover:bg-accent/20 font-semibold"
+              >
+                Sign in with Google
+              </Button>
+            </form>
+          )}
           <Button className="hidden sm:inline-flex bg-gradient-to-r from-yellow-400 to-yellow-500 text-black hover:from-yellow-500 hover:to-yellow-600 font-semibold">
             Start Editing
           </Button>
@@ -69,7 +108,25 @@ export default function Header() {
             <a href="#faq" className="block text-foreground/70 hover:text-foreground py-2">
               FAQ
             </a>
-            <Button className="w-full bg-gradient-to-r from-yellow-400 to-yellow-500 text-black">Start Editing</Button>
+            {user ? (
+              <>
+                <div className="text-sm text-foreground/70">Signed in as {displayName}</div>
+                <form action={signOut}>
+                  <Button type="submit" className="w-full bg-white text-foreground border border-border">
+                    Sign out
+                  </Button>
+                </form>
+              </>
+            ) : (
+              <form action={signInWithGoogle}>
+                <Button type="submit" className="w-full bg-white text-foreground border border-border">
+                  Sign in with Google
+                </Button>
+              </form>
+            )}
+            <Button className="w-full bg-gradient-to-r from-yellow-400 to-yellow-500 text-black">
+              Start Editing
+            </Button>
           </div>
         </div>
       )}
