@@ -40,6 +40,9 @@ export default function Header({ user }: HeaderProps) {
           <a href="#showcase" className="text-foreground/70 hover:text-foreground transition">
             Showcase
           </a>
+          <a href="/pricing" className="text-foreground/70 hover:text-foreground transition">
+            Pricing
+          </a>
           <a href="#reviews" className="text-foreground/70 hover:text-foreground transition">
             Reviews
           </a>
@@ -101,6 +104,9 @@ export default function Header({ user }: HeaderProps) {
             </a>
             <a href="#showcase" className="block text-foreground/70 hover:text-foreground py-2">
               Showcase
+            </a>
+            <a href="/pricing" className="block text-foreground/70 hover:text-foreground py-2">
+              Pricing
             </a>
             <a href="#reviews" className="block text-foreground/70 hover:text-foreground py-2">
               Reviews

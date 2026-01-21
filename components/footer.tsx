@@ -12,7 +12,7 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-foreground transition">
+                <a href="/pricing" className="hover:text-foreground transition">
                   Pricing
                 </a>
               </li>
