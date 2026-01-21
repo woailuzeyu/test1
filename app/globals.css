@@ -166,6 +166,17 @@
   }
 }
 
+@keyframes fade-up {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Utility for banana gradient */
 .banana-gradient {
   @apply bg-gradient-to-r from-yellow-400 to-yellow-500;
